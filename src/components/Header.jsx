@@ -1,5 +1,5 @@
 import logo from '../assets/logo.png'
-import iconMenu from '../assets/iconMenu.svg'
+import iconMenu from '../assets/icons/iconMenu.svg'
 
 const Header = ({title, handleOpenMenu}) => {
   return(

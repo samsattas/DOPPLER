@@ -1,6 +1,7 @@
 import { Button, Drawer } from "@mui/material";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import iconCancel from "../assets/icons/iconCancel.svg"
 
 const Navbar = ({open, handleClose}) => {
   const routes = [
@@ -27,6 +28,9 @@ const Navbar = ({open, handleClose}) => {
           className: "bg-green-100 sm:w-1/4 w-full"
         }}
       >
+        <div className="w-full flex justify-end px-8 py-8">
+          <button type="button" onClick={handleClose}><img src={iconCancel} alt="cancel" /></button>
+        </div>
         {routes.map((route) => (
           <NavLink 
             onClick={handleClose} 
