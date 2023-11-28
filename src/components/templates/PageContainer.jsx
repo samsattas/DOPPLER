@@ -8,7 +8,7 @@ const PageContainer = ({children}) => {
   return (
     <div className="flex flex-col h-full w-full">
       <Header handleOpenMenu={() => setOpen(true)} title={"DOPPLER"} />
-      <main className="flex flex-col-reverse md:flex-row">
+      <main className="flex flex-col-reverse md:flex-row p-4 md:p-10">
         <Navbar handleClose={() => setOpen(false)} open={open} />
         {children}
       </main>

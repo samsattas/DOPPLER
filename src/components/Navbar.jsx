@@ -14,9 +14,9 @@ const Navbar = ({open, handleClose}) => {
         open={open}
         onClose={handleClose}
       >
-        <NavLink to={""}>Home</NavLink>
-        <NavLink to={"projects"}>Projects</NavLink>
-        <NavLink to={"partners"}>Partners</NavLink>
+        <NavLink onClick={handleClose} to={""}>Home</NavLink>
+        <NavLink onClick={handleClose} to={"projects"}>Projects</NavLink>
+        <NavLink onClick={handleClose} to={"partners"}>Partners</NavLink>
       </Drawer>
     </aside>
   )
