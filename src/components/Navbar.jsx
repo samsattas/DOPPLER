@@ -3,20 +3,39 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const Navbar = ({open, handleClose}) => {
+  const routes = [
+    {
+      path: "",
+      title: "Home",
+    },
+    {
+      path: "projects",
+      title: "Projects",
+    },
+    {
+      path: "partners",
+      title: "Partners",
+    }
+  ]
+
   return(
-    <aside className="flex bg-slate-600 h-full items-center">
-      {/* <nav className="flex flex-col justify-between h-full max-h-[30%]">
-        <NavLink to={""}>Home</NavLink>
-        <NavLink to={"projects"}>Projects</NavLink>
-        <NavLink to={"partners"}>Partners</NavLink>
-      </nav> */}
+    <aside className="flex h-full items-center">
       <Drawer
         open={open}
         onClose={handleClose}
+        PaperProps={{
+          className: "bg-green-100 sm:w-1/4 w-full"
+        }}
       >
-        <NavLink onClick={handleClose} to={""}>Home</NavLink>
-        <NavLink onClick={handleClose} to={"projects"}>Projects</NavLink>
-        <NavLink onClick={handleClose} to={"partners"}>Partners</NavLink>
+        {routes.map((route) => (
+          <NavLink 
+            onClick={handleClose} 
+            to={route.path} 
+            className={"w-full text-center sm:text-start sm:pl-10 hover:bg-green-500 font-bold text-2xl text-green-500 hover:text-white py-4 sm:hover:pl-16 transition-all duration-300"}
+          >
+            {route.title}
+          </NavLink>
+        ))}
       </Drawer>
     </aside>
   )
