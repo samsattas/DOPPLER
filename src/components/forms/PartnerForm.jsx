@@ -2,6 +2,7 @@ import { LoadingButton } from "@mui/lab";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import cancelIcon from "../../assets/icons/iconCancel.svg";
+import { deletePartner, postPartner } from "../../utils/PartnerStore";
 
 const PartnerForm = ({partner, open, close}) => {
   const theme = useTheme();
@@ -57,10 +58,28 @@ const PartnerForm = ({partner, open, close}) => {
     }
   }
 
-  const handleSubmit = () => {
-    // setLoading(true);
-    console.log(jsonPartner);
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const res = await postPartner(jsonPartner);
+      if(res === ""){
+        handleClose();
+        setLoading(false)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  const handleDelete = async () => {
+    try {
+      const res = await deletePartner(partner.id);
+      if(res === ""){
+        handleClose();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return(
@@ -166,7 +185,7 @@ const PartnerForm = ({partner, open, close}) => {
           <div className="flex justify-between w-full">
             <Button 
               className="bg-red-300 text-red-700 font-bold hover:bg-red-400" 
-              onClick={() => setReadOnly(true)} 
+              onClick={handleDelete} 
               type="button" 
               variant="contained" 
             >
@@ -184,7 +203,7 @@ const PartnerForm = ({partner, open, close}) => {
               <LoadingButton 
                 className="bg-green-300 text-green-700 font-bold hover:bg-green-400" 
                 loading={loading} 
-                onClick={() => setLoading(true)}
+                onClick={handleSubmit}
                 variant="contained" 
                 disabled={!isAllDataCorrect}
               >

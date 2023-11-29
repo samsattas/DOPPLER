@@ -300,7 +300,7 @@ const Projects = () => {
           <TableBody>
             {(rowsPerPage > 0
             ? projectsBase.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows).map((project) => (
+            : projectsBase).map((project) => (
               <TableRow 
                 key={project.id}
                 className="hover:bg-gray-100 transition-all duration-300 cursor-pointer"

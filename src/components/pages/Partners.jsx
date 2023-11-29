@@ -1,109 +1,41 @@
 import { Pagination, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import PartnerForm from "../forms/PartnerForm";
+import { getAllPartners } from "../../utils/PartnerStore";
 
 const Partners = () => {
   const [openForm, setOpenForm] = useState(false);
   const [selectedPartner, setSelectedPartner] = useState();
-  const [partnersBase, setPartnersBase] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  const listPartners = [
-    {
-      "name": "John Doe",
-      "phone": 1234567890,
-      "type": "person",
-      "description": "A trusted partner for many years."
-    },
-    {
-      "name": "ABC Company",
-      "phone": 9876543210,
-      "type": "company",
-      "description": "Specializing in software development."
-    },
-    {
-      "name": "Jane Smith",
-      "phone": 5555555555,
-      "type": "person",
-      "description": "An experienced consultant."
-    },
-    {
-      "name": "XYZ Corporation",
-      "phone": 1112223333,
-      "type": "company",
-      "description": "Providing top-notch IT services."
-    },
-    {
-      "name": "Samuel Johnson",
-      "phone": 4444444444,
-      "type": "person",
-      "description": "A reliable supplier."
-    },
-    {
-      "name": "DEF Enterprises",
-      "phone": 9998887777,
-      "type": "company",
-      "description": "Offering comprehensive solutions."
-    },
-    {
-      "name": "Sara Thompson",
-      "phone": 7777777777,
-      "type": "person",
-      "description": "A skilled project manager."
-    },
-    {
-      "name": "GHI Systems",
-      "phone": 6666666666,
-      "type": "company",
-      "description": "Delivering cutting-edge technology."
-    },
-    {
-      "name": "Michael Davis",
-      "phone": 2223334444,
-      "type": "person",
-      "description": "An expert in financial services."
-    },
-    {
-      "name": "JKL Solutions",
-      "phone": 5554443333,
-      "type": "company",
-      "description": "Providing efficient business solutions."
-    },
-    {
-      "name": "Emily Wilson",
-      "phone": 1112223333,
-      "type": "person",
-      "description": "A talented graphic designer."
-    },
-    {
-      "name": "MNO Enterprises",
-      "phone": 8889990000,
-      "type": "company",
-      "description": "Offering innovative marketing strategies."
-    },
-    {
-      "name": "Robert Taylor",
-      "phone": 4445556666,
-      "type": "person",
-      "description": "A skilled software engineer."
-    },
-    {
-      "name": "PQR Industries",
-      "phone": 7778889999,
-      "type": "company",
-      "description": "Manufacturing high-quality products."
-    }
-  ];
+  const [listPartners, setListPartners] = useState([]);
+  const [partnersBase, setPartnersBase] = useState([]);
 
   useEffect(() => {
-    setPartnersBase(listPartners);
-  },[])
+    async function fetchData() {
+      try {
+        let partners = await getAllPartners();
+        if (partners) {
+          setListPartners(partners);
+        }
+      }catch(error){
+        console.log(error)
+      }
+    }
+    fetchData();
+  },[openForm])
+
+  useEffect(() => {
+    if(listPartners){
+      setPartnersBase(listPartners);
+    }
+  },[listPartners,openForm])
 
   const handleSearch = (event) => {
+    console.log(listPartners)
     let auxArr = [];
     listPartners.forEach((item)=>{
-      if(item.title.toLowerCase().includes(event.target.value.toLowerCase())){
+      if(item.name.toLowerCase().includes(event.target.value.toLowerCase())){
         auxArr.push(item)
       }
     })
@@ -141,9 +73,9 @@ const Partners = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
+            {(rowsPerPage > 0 
             ? partnersBase.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : rows).map((partner) => (
+            : partnersBase).map((partner) => (
               <TableRow 
                 key={partner.id}
                 className="hover:bg-gray-100 transition-all duration-300 cursor-pointer"
