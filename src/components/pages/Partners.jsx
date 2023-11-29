@@ -9,7 +9,92 @@ const Partners = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const listPartners = [];
+  const listPartners = [
+    {
+      "name": "John Doe",
+      "phone": 1234567890,
+      "type": "person",
+      "description": "A trusted partner for many years."
+    },
+    {
+      "name": "ABC Company",
+      "phone": 9876543210,
+      "type": "company",
+      "description": "Specializing in software development."
+    },
+    {
+      "name": "Jane Smith",
+      "phone": 5555555555,
+      "type": "person",
+      "description": "An experienced consultant."
+    },
+    {
+      "name": "XYZ Corporation",
+      "phone": 1112223333,
+      "type": "company",
+      "description": "Providing top-notch IT services."
+    },
+    {
+      "name": "Samuel Johnson",
+      "phone": 4444444444,
+      "type": "person",
+      "description": "A reliable supplier."
+    },
+    {
+      "name": "DEF Enterprises",
+      "phone": 9998887777,
+      "type": "company",
+      "description": "Offering comprehensive solutions."
+    },
+    {
+      "name": "Sara Thompson",
+      "phone": 7777777777,
+      "type": "person",
+      "description": "A skilled project manager."
+    },
+    {
+      "name": "GHI Systems",
+      "phone": 6666666666,
+      "type": "company",
+      "description": "Delivering cutting-edge technology."
+    },
+    {
+      "name": "Michael Davis",
+      "phone": 2223334444,
+      "type": "person",
+      "description": "An expert in financial services."
+    },
+    {
+      "name": "JKL Solutions",
+      "phone": 5554443333,
+      "type": "company",
+      "description": "Providing efficient business solutions."
+    },
+    {
+      "name": "Emily Wilson",
+      "phone": 1112223333,
+      "type": "person",
+      "description": "A talented graphic designer."
+    },
+    {
+      "name": "MNO Enterprises",
+      "phone": 8889990000,
+      "type": "company",
+      "description": "Offering innovative marketing strategies."
+    },
+    {
+      "name": "Robert Taylor",
+      "phone": 4445556666,
+      "type": "person",
+      "description": "A skilled software engineer."
+    },
+    {
+      "name": "PQR Industries",
+      "phone": 7778889999,
+      "type": "company",
+      "description": "Manufacturing high-quality products."
+    }
+  ];
 
   useEffect(() => {
     setPartnersBase(listPartners);
@@ -46,10 +131,13 @@ const Partners = () => {
         </button>
       </section>
       <section className="w-full max-h-[67vh] overflow-scroll md:overflow-auto">
-        <Table className="w-full h-fit" stickyHeader>
+        <Table className="w-full" stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell className="font-bold text-xl w-12">ID</TableCell>
+              <TableCell className="font-bold text-xl w-12">Name</TableCell>
+              <TableCell className="font-bold text-xl w-12">Phone</TableCell>
+              <TableCell className="font-bold text-xl w-12">Type</TableCell>
+              <TableCell className="font-bold text-xl w-12">Details</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -64,7 +152,10 @@ const Partners = () => {
                   setOpenForm(true);
                 }} 
               >
-                <TableCell>{partner.id}</TableCell>
+                <TableCell>{partner.name}</TableCell>
+                <TableCell>{partner.phone}</TableCell>
+                <TableCell>{partner.type}</TableCell>
+                <TableCell>{partner.description}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -75,7 +166,7 @@ const Partners = () => {
             setOpenForm(false);
             setSelectedPartner();
           }} 
-          project={selectedPartner} 
+          partner={selectedPartner} 
         />
       </section>
       <Pagination

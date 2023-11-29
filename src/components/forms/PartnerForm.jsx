@@ -111,7 +111,6 @@ const PartnerForm = ({partner, open, close}) => {
             type="number"
             value={jsonPartner?.phone}
           />
-
         </form>
         <form className="flex flex-col">
           <label>Type *</label>
@@ -131,7 +130,14 @@ const PartnerForm = ({partner, open, close}) => {
         </form>
         <form className="flex flex-col">
           <label>Description *</label>
-          <textarea rows={5} name="description" onChange={handleChange} className="border border-gray-300 rounded-[4px] p-2" />
+          <textarea
+            value={jsonPartner?.description}
+            rows={5} 
+            name="description" 
+            onChange={handleChange} 
+            className="border border-gray-300 rounded-[4px] p-2"
+            disabled={readOnly}
+          />
         </form>
       </DialogContent>
       <DialogActions className="p-6">
