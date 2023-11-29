@@ -1,4 +1,4 @@
-import { Pagination, Table, TableBody, TableCell, TableFooter, TableHead, TablePagination, TableRow, TextField } from "@mui/material";
+import { Pagination, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import ProjectForm from "../forms/ProjectForm";
 
@@ -20,7 +20,7 @@ const Projects = () => {
     },
     {
       "id": "2",
-      "title": "Investigation Project B",
+      "title": "Investigation Advance B",
       "status": false,
       "partners": "Partner B",
       "environment": "Highland",
@@ -28,7 +28,7 @@ const Projects = () => {
     },
     {
       "id": "3",
-      "title": "Investigation Project C",
+      "title": "Investigation Advance C",
       "status": true,
       "partners": "Partner C",
       "environment": "Highland",
@@ -36,7 +36,7 @@ const Projects = () => {
     },
     {
       "id": "4",
-      "title": "Investigation Project D",
+      "title": "Investigation Advance D",
       "status": true,
       "partners": "Partner D",
       "environment": "Highland",
@@ -44,7 +44,7 @@ const Projects = () => {
     },
     {
       "id": "5",
-      "title": "Investigation Project E",
+      "title": "Investigation Advance E",
       "status": false,
       "partners": "Partner E",
       "environment": "Highland",
@@ -52,7 +52,7 @@ const Projects = () => {
     },
     {
       "id": "6",
-      "title": "Investigation Project F",
+      "title": "Investigation Advance F",
       "status": true,
       "partners": "Partner F",
       "environment": "Desert",
@@ -60,7 +60,7 @@ const Projects = () => {
     },
     {
       "id": "7",
-      "title": "Investigation Project G",
+      "title": "Investigation Advance G",
       "status": true,
       "partners": "Partner G",
       "environment": "Desert",
@@ -68,7 +68,7 @@ const Projects = () => {
     },
     {
       "id": "8",
-      "title": "Investigation Project H",
+      "title": "Investigation Advance H",
       "status": false,
       "partners": "Partner H",
       "environment": "Desert",
@@ -76,7 +76,7 @@ const Projects = () => {
     },
     {
       "id": "9",
-      "title": "Investigation Project I",
+      "title": "Investigation Advance I",
       "status": true,
       "partners": "Partner I",
       "environment": "Desert",
@@ -84,7 +84,7 @@ const Projects = () => {
     },
     {
       "id": "10",
-      "title": "Investigation Project J",
+      "title": "Investigation Advance J",
       "status": true,
       "partners": "Partner J",
       "environment": "Desert",
@@ -253,30 +253,35 @@ const Projects = () => {
   ]
 
   useEffect(() => {
-
-  },[listProjects])
+    setProjectsBase(listProjects);
+    console.log('dasdsa');
+  },[])
 
   const handleChange = (event) => {
 
+  }
+
+  const handleSearch = (event) => {
+    let auxArr = [];
+    listProjects.forEach((item)=>{
+      if(item.title.toLowerCase().includes(event.target.value.toLowerCase())){
+        auxArr.push(item)
+      }
+    })
+    setProjectsBase(auxArr);
   }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage-1);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
   return(
     <article className="px-4 w-full h-full rounded-2xl bg-white bg-opacity-90">
-      <section className="flex flex-col-reverse
-       gap-4 sm:flex-row justify-between">
+      <section className="flex flex-col-reverse gap-4 sm:flex-row justify-between">
         <TextField
           size="small"
           placeholder="Search.."
-          onChange={handleChange}
+          onChange={handleSearch}
           className="w-full sm:w-72"
         />
         <button 
@@ -286,7 +291,7 @@ const Projects = () => {
           Create Project
         </button>
       </section>
-      <section className="w-full max-h-[70vh] overflow-scroll">
+      <section className="w-full max-h-[67vh] overflow-scroll">
         <Table className="w-full h-fit" stickyHeader>
           <TableHead>
             <TableRow>
@@ -299,7 +304,7 @@ const Projects = () => {
           </TableHead>
           <TableBody>
             {(rowsPerPage > 0
-            ? listProjects.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            ? projectsBase.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows).map((project) => (
               <TableRow 
                 key={project.id}
@@ -317,27 +322,7 @@ const Projects = () => {
               </TableRow>
             ))}
           </TableBody>
-          {/* <TableFooter>
-            <TableRow>
-              <TablePagination
-                count={listProjects.length}
-                page={page}
-                component="div"
-                onPageChange={handleChangePage}
-                rowsPerPage={rowsPerPage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-            </TableRow>
-          </TableFooter> */}
         </Table>
-        <Pagination 
-          className="w-full flex justify-center"
-          count={Math.ceil(listProjects.length/10)} 
-          page={page+1} 
-          onChange={handleChangePage} 
-          showFirstButton 
-          showLastButton
-        />
         <ProjectForm 
           open={openForm} 
           close={() => {
@@ -347,6 +332,14 @@ const Projects = () => {
           project={selectedProject} 
         />
       </section>
+      <Pagination 
+        className="w-full flex justify-center py-4"
+        count={Math.ceil(projectsBase.length/10)} 
+        page={page+1} 
+        onChange={handleChangePage} 
+        showFirstButton 
+        showLastButton
+      />
     </article>
   )
 }
