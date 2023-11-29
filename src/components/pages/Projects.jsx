@@ -1,260 +1,35 @@
 import { Pagination, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import ProjectForm from "../forms/ProjectForm";
+import { getAllProjects } from "../../utils/ProjectStore";
 
 const Projects = () => {
   const [openForm, setOpenForm] = useState(false);
   const [selectedProject, setSelectedProject] = useState();
-  const [projectsBase, setProjectsBase] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  const listProjects = [
-    {
-      "id": "1",
-      "title": "Investigation Project A",
-      "status": true,
-      "partners": "Partner A",
-      "environment": "Highland",
-      "details": "Details about crops"
-    },
-    {
-      "id": "2",
-      "title": "Investigation Advance B",
-      "status": false,
-      "partners": "Partner B",
-      "environment": "Highland",
-      "details": "Details about crops"
-    },
-    {
-      "id": "3",
-      "title": "Investigation Advance C",
-      "status": true,
-      "partners": "Partner C",
-      "environment": "Highland",
-      "details": "Details about crops"
-    },
-    {
-      "id": "4",
-      "title": "Investigation Advance D",
-      "status": true,
-      "partners": "Partner D",
-      "environment": "Highland",
-      "details": "Details about crops"
-    },
-    {
-      "id": "5",
-      "title": "Investigation Advance E",
-      "status": false,
-      "partners": "Partner E",
-      "environment": "Highland",
-      "details": "Details about crops"
-    },
-    {
-      "id": "6",
-      "title": "Investigation Advance F",
-      "status": true,
-      "partners": "Partner F",
-      "environment": "Desert",
-      "details": "Details about crops"
-    },
-    {
-      "id": "7",
-      "title": "Investigation Advance G",
-      "status": true,
-      "partners": "Partner G",
-      "environment": "Desert",
-      "details": "Details about crops"
-    },
-    {
-      "id": "8",
-      "title": "Investigation Advance H",
-      "status": false,
-      "partners": "Partner H",
-      "environment": "Desert",
-      "details": "Details about crops"
-    },
-    {
-      "id": "9",
-      "title": "Investigation Advance I",
-      "status": true,
-      "partners": "Partner I",
-      "environment": "Desert",
-      "details": "Details about crops"
-    },
-    {
-      "id": "10",
-      "title": "Investigation Advance J",
-      "status": true,
-      "partners": "Partner J",
-      "environment": "Desert",
-      "details": "Details about crops"
-    },
-    {
-      "id": "11",
-      "title": "Investigation Project K",
-      "status": false,
-      "partners": "Partner K",
-      "environment": "Desert",
-      "details": "Details about crops"
-    },
-    {
-      "id": "12",
-      "title": "Investigation Project L",
-      "status": true,
-      "partners": "Partner L",
-      "environment": "Desert",
-      "details": "Details about crops"
-    },
-    {
-      "id": "13",
-      "title": "Investigation Project M",
-      "status": true,
-      "partners": "Partner M",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "14",
-      "title": "Investigation Project N",
-      "status": false,
-      "partners": "Partner N",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "15",
-      "title": "Investigation Project O",
-      "status": true,
-      "partners": "Partner O",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "16",
-      "title": "Investigation Project P",
-      "status": true,
-      "partners": "Partner P",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "17",
-      "title": "Investigation Project Q",
-      "status": false,
-      "partners": "Partner Q",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "18",
-      "title": "Investigation Project R",
-      "status": true,
-      "partners": "Partner R",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "19",
-      "title": "Investigation Project S",
-      "status": true,
-      "partners": "Partner S",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "20",
-      "title": "Investigation Project T",
-      "status": false,
-      "partners": "Partner T",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "21",
-      "title": "Investigation Project U",
-      "status": true,
-      "partners": "Partner U",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "22",
-      "title": "Investigation Project V",
-      "status": true,
-      "partners": "Partner V",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "23",
-      "title": "Investigation Project W",
-      "status": false,
-      "partners": "Partner W",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "24",
-      "title": "Investigation Project X",
-      "status": true,
-      "partners": "Partner X",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "25",
-      "title": "Investigation Project Y",
-      "status": true,
-      "partners": "Partner Y",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "26",
-      "title": "Investigation Project Z",
-      "status": false,
-      "partners": "Partner Z",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "27",
-      "title": "Investigation Project AA",
-      "status": true,
-      "partners": "Partner AA",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "28",
-      "title": "Investigation Project BB",
-      "status": true,
-      "partners": "Partner BB",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "29",
-      "title": "Investigation Project CC",
-      "status": false,
-      "partners": "Partner CC",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    },
-    {
-      "id": "30",
-      "title": "Investigation Project DD",
-      "status": true,
-      "partners": "Partner DD",
-      "environment": "Hilly",
-      "details": "Details about crops"
-    }
-  ]
+  const [listProjects, setListProjects] = useState([]);
+  const [projectsBase, setProjectsBase] = useState([]);
 
   useEffect(() => {
-    setProjectsBase(listProjects);
-  },[])
+    async function fetchData() {
+      try {
+        let projects = await getAllProjects();
+        if (projects) {
+          setListProjects(projects);
+        }
+      }catch(error){
+        console.log(error)
+      }
+    }
+    fetchData();
+  },[openForm])
+
+  useEffect(() => {
+    if(listProjects){
+      setProjectsBase(listProjects);
+    }
+  },[listProjects, openForm])
 
   const handleSearch = (event) => {
     let auxArr = [];

@@ -31,6 +31,7 @@ const PartnerForm = ({partner, open, close}) => {
       !jsonPartner?.name
       || !jsonPartner?.type
       || !jsonPartner?.description
+      || !jsonPartner?.phone
     ){
       setIsAllDataCorrect(false)
     }else{

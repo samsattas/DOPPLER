@@ -2,6 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl,
 import { useEffect, useState } from "react";
 import cancelIcon from "../../assets/icons/iconCancel.svg"
 import { LoadingButton } from "@mui/lab";
+import { deleteProject, postProject } from "../../utils/ProjectStore";
 
 const ProjectForm = ({project, open, close}) => {
   const theme = useTheme();
@@ -58,14 +59,28 @@ const ProjectForm = ({project, open, close}) => {
     }
   }
 
-  const handleSubmit = () => {
-    // setLoading(true);
-    console.log(jsonProject);
-
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const res = await postProject(jsonProject);
+      if(res === ""){
+        handleClose();
+        setLoading(false)
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  const handleDelete = () => {
-    handleClose();
+  const handleDelete = async () => {
+    try {
+      const res = await deleteProject(project.id);
+      if(res === ""){
+        handleClose();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return(
@@ -107,6 +122,7 @@ const ProjectForm = ({project, open, close}) => {
           />
         </form>
         <FormControlLabel 
+          disabled={readOnly}
           checked={jsonProject?.status} 
           control={<Switch color="success"  />} 
           label="Status"  
@@ -123,6 +139,7 @@ const ProjectForm = ({project, open, close}) => {
             defaultValue={''}
             onChange={handleChange}
             size="small"
+            disabled={readOnly}
           >
             <option value={''}></option>
             <option value={'High humidity'}>High humidity</option>
@@ -141,6 +158,8 @@ const ProjectForm = ({project, open, close}) => {
             name="details" 
             onChange={handleChange} 
             className="border border-gray-300 rounded-[4px]  p-2" 
+            value={jsonProject?.details}
+            disabled={readOnly}
           />
         </form>
       </DialogContent>
@@ -188,7 +207,7 @@ const ProjectForm = ({project, open, close}) => {
               <LoadingButton 
                 className="bg-green-300 text-green-700 font-bold hover:bg-green-400" 
                 loading={loading} 
-                onClick={() => setLoading(true)}
+                onClick={handleSubmit}
                 variant="contained" 
                 disabled={!isAllDataCorrect}
               >
