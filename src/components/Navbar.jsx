@@ -33,6 +33,7 @@ const Navbar = ({open, handleClose}) => {
         </div>
         {routes.map((route) => (
           <NavLink 
+            key={route.path}
             onClick={handleClose} 
             to={route.path} 
             className={"w-full text-center sm:text-start sm:pl-10 hover:bg-green-500 font-bold text-2xl text-green-500 hover:text-white py-4 sm:hover:pl-16 transition-all duration-300"}

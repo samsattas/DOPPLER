@@ -1,4 +1,5 @@
 import logo from '../assets/logo.png'
+import favicon from '../assets/favicon.png'
 import iconMenu from '../assets/icons/iconMenu.svg'
 
 const Header = ({title, handleOpenMenu}) => {
@@ -7,7 +8,8 @@ const Header = ({title, handleOpenMenu}) => {
       <button onClick={handleOpenMenu} className='h-full'>
         <img src={iconMenu} className='h-1/2'/>
       </button>
-      <img src={logo} className='w-[150px] h-[40px]' />
+      <img src={logo} className='w-[150px] h-[40px] hidden md:block' />
+      <img src={favicon} className='w-[40px] h-[40px] md:hidden' />
     </header>
   )
 }
