@@ -1,58 +1,57 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, InputLabel, MenuItem, Select, Switch, TextField, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
-import cancelIcon from "../../assets/icons/iconCancel.svg"
 import { LoadingButton } from "@mui/lab";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
+import cancelIcon from "../../assets/icons/iconCancel.svg";
 
-const ProjectForm = ({project, open, close}) => {
+const PartnerForm = ({partner, open, close}) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const [readOnly, setReadOnly] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [jsonProject, setJsonProject] = useState({status: true});
+  const [jsonPartner, setJsonPartner] = useState({});
   const [isAllDataCorrect, setIsAllDataCorrect] = useState(false);
 
   useEffect(() => {
-    if(project){
-      setJsonProject(project);
+    if(partner){
+      setJsonPartner(partner);
       setEditMode(true);
       setReadOnly(true)
     }else{
-      setJsonProject({status: true});
+      setJsonPartner({});
       setEditMode(false);
       setReadOnly(false)
     }
-  },[project, open])
+  },[partner, open])
 
   useEffect(() => {
     if(
-      !jsonProject?.title
-      // || !jsonProject?.partners
-      || !jsonProject?.environment
-      // || !jsonProject?.details
+      !jsonPartner?.name
+      || !jsonPartner?.type
+      || !jsonPartner?.description
     ){
       setIsAllDataCorrect(false)
     }else{
       setIsAllDataCorrect(true)
     }
-  },[jsonProject])
+  },[jsonPartner])
 
   const handleClose = () => {
-    setJsonProject({status: true});
+    setJsonPartner({});
     setLoading(false)
     close();
   }
 
   const handleChange = (event) => {
     if (event.target.type === "checkbox") {
-      setJsonProject({
-        ...jsonProject,
+      setJsonPartner({
+        ...jsonPartner,
         [event.target.name]: event.target.checked,
       });
     } else {
-      setJsonProject({
-        ...jsonProject,
+      setJsonPartner({
+        ...jsonPartner,
         [event.target.name]: event.target.value,
       })
     }
@@ -60,12 +59,8 @@ const ProjectForm = ({project, open, close}) => {
 
   const handleSubmit = () => {
     // setLoading(true);
-    console.log(jsonProject);
+    console.log(jsonPartner);
 
-  }
-
-  const handleDelete = () => {
-    handleClose();
   }
 
   return(
@@ -76,9 +71,9 @@ const ProjectForm = ({project, open, close}) => {
       open={open}
     >
       <DialogTitle className="flex justify-between items-center">
-        {editMode && !readOnly && "Edit Project"}
-        {editMode && readOnly && "View Project"}
-        {!editMode && !readOnly && "Create Project"}
+        {editMode && !readOnly && "Edit Partner"}
+        {editMode && readOnly && "View Partner"}
+        {!editMode && !readOnly && "Create Partner"}
         <button 
           onClick={handleClose} 
           type="button"
@@ -95,58 +90,53 @@ const ProjectForm = ({project, open, close}) => {
       </DialogTitle>
       <DialogContent className="flex flex-col gap-4 w-full md:w-[512px]">
         <form className="flex flex-col">
-          <label>Title *</label>
+          <label>Name *</label>
           <input
             className="w-full border border-gray-300 rounded-[4px] p-2"
             disabled={readOnly}
-            name={"title"}
-            placeholder="Project M"
+            name={"name"}
             onChange={handleChange}
             type="text"
-            value={jsonProject?.title}
+            value={jsonPartner?.name}
           />
         </form>
-        <FormControlLabel 
-          checked={jsonProject?.status} 
-          control={<Switch color="success"  />} 
-          label="Status"  
-          name="status" 
-          onChange={handleChange} 
-          required 
-        />
         <form className="flex flex-col">
-          <label>Environment *</label>
+          <label>Phone number *</label>
+          <input
+            className="w-full border border-gray-300 rounded-[4px] p-2"
+            disabled={readOnly}
+            name={"phone"}
+            onChange={handleChange}
+            onKeyDown={(evt) => ["e", "E", "+", "-", "."].includes(evt.key) && evt.preventDefault()}
+            type="number"
+            value={jsonPartner?.phone}
+          />
+
+        </form>
+        <form className="flex flex-col">
+          <label>Type *</label>
           <select
-            className="border border-gray-300 rounded-[4px] py-2"
-            value={jsonProject?.environment}
-            name="environment"
+            className="border border-gray-300 rounded-[4px] p-2"
+            value={jsonPartner?.type}
+            name="type"
             defaultValue={''}
             onChange={handleChange}
             size="small"
+            disabled={readOnly}
           >
             <option value={''}></option>
-            <option value={'High humidity'}>High humidity</option>
-            <option value={'Desert'}>Desert</option>
-            <option value={'Flooded'}>Flooded</option>
-            <option value={'Hilly'}>Hilly</option>
-            <option value={'Highland'}>Highland</option>
-            <option value={'Lowland'}>Lowland</option>
+            <option value={'person'}>Person</option>
+            <option value={'company'}>Company</option>
           </select>
         </form>
         <form className="flex flex-col">
-          <label>Additional details</label>
-          <textarea 
-            placeholder="Some details . . ."
-            rows={5} 
-            name="details" 
-            onChange={handleChange} 
-            className="border border-gray-300 rounded-[4px]  p-2" 
-          />
+          <label>Description *</label>
+          <textarea rows={5} name="description" onChange={handleChange} className="border border-gray-300 rounded-[4px] p-2" />
         </form>
       </DialogContent>
       <DialogActions className="p-6">
         {!editMode && !readOnly && 
-          <LoadingButton 
+          <LoadingButton
             className="bg-green-300 text-green-700 font-bold hover:bg-green-400" 
             loading={loading} 
             onClick={handleSubmit}
@@ -157,7 +147,7 @@ const ProjectForm = ({project, open, close}) => {
           </LoadingButton>
         }
         {editMode && readOnly &&
-          <Button 
+          <Button
             className="bg-green-300 text-green-700 font-bold hover:bg-green-400"  
             onClick={() => setReadOnly(false)} 
             type="button" 
@@ -170,7 +160,7 @@ const ProjectForm = ({project, open, close}) => {
           <div className="flex justify-between w-full">
             <Button 
               className="bg-red-300 text-red-700 font-bold hover:bg-red-400" 
-              onClick={handleDelete} 
+              onClick={() => setReadOnly(true)} 
               type="button" 
               variant="contained" 
             >
@@ -199,7 +189,7 @@ const ProjectForm = ({project, open, close}) => {
         }
       </DialogActions>
     </Dialog>
-  );
+  )
 }
 
-export default ProjectForm;
+export default PartnerForm;

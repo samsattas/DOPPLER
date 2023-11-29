@@ -1,5 +1,6 @@
 import { Pagination, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
+import PartnerForm from "../forms/PartnerForm";
 
 const Partners = () => {
   const [openForm, setOpenForm] = useState(false);
@@ -23,7 +24,7 @@ const Partners = () => {
     })
     setPartnersBase(auxArr);
   }
-  
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage-1);
   };
@@ -38,7 +39,7 @@ const Partners = () => {
           className="w-full sm:w-72"
         />
         <button 
-          className="bg-green-300 text-green-700 font-bold hover:bg-green-400 transition-all duration-300 px-8 py-2 rounded-md"
+          className="bg-orange-300 text-orange-700 font-bold hover:bg-orange-400 transition-all duration-300 px-8 py-2 rounded-md"
           onClick={() => setOpenForm(true)}
         >
           Add Partner
@@ -68,17 +69,17 @@ const Partners = () => {
             ))}
           </TableBody>
         </Table>
-        {/* <ProjectForm 
+        <PartnerForm 
           open={openForm} 
           close={() => {
             setOpenForm(false);
-            setSelectedProject();
+            setSelectedPartner();
           }} 
-          project={selectedProject} 
-        /> */}
+          project={selectedPartner} 
+        />
       </section>
       <Pagination
-        className="w-full flex justify-center pb-2"
+        className={partnersBase.length > rowsPerPage ? "w-full flex justify-center pb-2" : "hidden"}
         count={Math.ceil(partnersBase.length/10)} 
         page={page+1} 
         onChange={handleChangePage} 
