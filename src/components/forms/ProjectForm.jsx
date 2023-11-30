@@ -45,7 +45,6 @@ const ProjectForm = ({project, open, close}) => {
   useEffect(() => {
     if(
       !jsonProject?.title
-      // || !jsonProject?.partners
       || !jsonProject?.environment
       || !jsonProject?.details
     ){
