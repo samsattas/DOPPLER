@@ -8,25 +8,28 @@ import Partners from './components/pages/Partners'
 import PageContainer from './components/templates/PageContainer'
 import Home from './components/pages/Home'
 import NotFound from './components/pages/NotFound'
+import { MyContext } from './utils/MyContext'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [page, setPage] = useState('Home')
 
   return (
-    <BrowserRouter>
-      <Routes>
-          <Route path="/" element={
-            <PageContainer>
-              <Layout />
-            </PageContainer>
-          }>
-            <Route path="" element={<Home />} />
-            <Route path="projects" element={<Projects />} />
-            <Route path="partners" element={<Partners />} />
-            <Route path='*' element={<NotFound />} />
-          </Route>
-      </Routes>
-    </BrowserRouter>
+    <MyContext.Provider value={{ page, setPage }}>
+      <BrowserRouter>
+        <Routes>
+            <Route path="/" element={
+              <PageContainer>
+                <Layout />
+              </PageContainer>
+            }>
+              <Route path="" element={<Home />} />
+              <Route path="projects" element={<Projects />} />
+              <Route path="partners" element={<Partners />} />
+              <Route path='*' element={<NotFound />} />
+            </Route>
+        </Routes>
+      </BrowserRouter>
+    </MyContext.Provider>
   )
 }
 

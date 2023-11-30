@@ -32,7 +32,6 @@ const Partners = () => {
   },[listPartners,openForm])
 
   const handleSearch = (event) => {
-    console.log(listPartners)
     let auxArr = [];
     listPartners.forEach((item)=>{
       if(item.name.toLowerCase().includes(event.target.value.toLowerCase())){
@@ -51,7 +50,7 @@ const Partners = () => {
       <section className="flex flex-col-reverse gap-2 sm:flex-row justify-between">
         <TextField
           size="small"
-          placeholder="Search.."
+          placeholder="Search..."
           onChange={handleSearch}
           className="w-full sm:w-72"
         />

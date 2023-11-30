@@ -1,7 +1,8 @@
 import { Pagination, Table, TableBody, TableCell, TableHead, TableRow, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import ProjectForm from "../forms/ProjectForm";
-import { getAllProjects } from "../../utils/ProjectStore";
+import { exportCSVFile, getAllProjects } from "../../utils/ProjectStore";
+import iconExport from '../../assets/icons/iconExport.svg'
 
 const Projects = () => {
   const [openForm, setOpenForm] = useState(false);
@@ -50,16 +51,37 @@ const Projects = () => {
       <section className="flex flex-col-reverse gap-2 sm:flex-row justify-between">
         <TextField
           size="small"
-          placeholder="Search.."
+          placeholder="Search by title"
           onChange={handleSearch}
           className="w-full sm:w-72"
         />
-        <button 
-          className="bg-orange-300 text-orange-700 font-bold hover:bg-orange-400 transition-all duration-300 px-8 py-2 rounded-md"
-          onClick={() => setOpenForm(true)}
-        >
-          Create Project
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={
+              () => exportCSVFile(
+                {
+                  id: "ID",
+                  title: "Title",
+                  status: "Status",
+                  environment: "Environment",
+                  details: "Details",
+                  partners: "Partners"
+                },
+                projectsBase.slice(),
+                'Projects'
+              )
+            }
+            className="bg-green-300 hover:bg-green-400 transition-all duration-300 p-2 rounded-md"
+          >
+            <img src={iconExport} alt="export" />
+          </button>
+          <button 
+            className="bg-orange-300 text-orange-700 font-bold hover:bg-orange-400 transition-all duration-300 px-8 py-2 rounded-md"
+            onClick={() => setOpenForm(true)}
+          >
+            Create Project
+          </button>
+        </div>
       </section>
       <section className="w-full max-h-[67vh] overflow-scroll md:overflow-auto">
         <Table className="w-full h-fit" stickyHeader>
@@ -88,7 +110,9 @@ const Projects = () => {
                 <TableCell>{project.title}</TableCell>
                 <TableCell>{project.status ? 'Active' : 'Inactive'}</TableCell>
                 <TableCell>{project.environment}</TableCell>
-                <TableCell>{project.partners}</TableCell>
+                <TableCell>{project.partners?.map((partner) => (
+                  <p key={partner.id}>{`• ${partner.name}`}</p>
+                ))}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -103,7 +127,7 @@ const Projects = () => {
         />
       </section>
       <Pagination 
-        className="w-full flex justify-center pb-2"
+        className={projectsBase.length > rowsPerPage ? "w-full flex justify-center pb-2" : "hidden"}
         count={Math.ceil(projectsBase.length/10)} 
         page={page+1} 
         onChange={handleChangePage} 

@@ -1,12 +1,30 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png"
 import Card from "../Card";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getAllPartners } from "../../utils/PartnerStore";
+import { getAllProjects } from "../../utils/ProjectStore";
+import { MyContext } from "../../utils/MyContext";
 
 const Home = () => {
   const navigate = useNavigate()
+  const {page, setPage} = useContext(MyContext);
   const [listPartners, setListPartners] = useState([]);
+  const [listProjects, setListProjects] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        let projects = await getAllProjects();
+        if (projects) {
+          setListProjects(projects);
+        }
+      }catch(error){
+        console.log(error)
+      }
+    }
+    fetchData();
+  },[])
 
   useEffect(() => {
     async function fetchData() {
@@ -28,8 +46,25 @@ const Home = () => {
         Welcome to
         <img src={logo} alt="DOPPLER" className="sm:w-1/3 w-full" />
         <section className="w-full flex flex-col sm:flex-row sm:justify-evenly gap-10 pt-10">
-          <Card title={10} content={"Go to Projects"} subtitle={"Projects"} handleClick={() => navigate('projects')} />
-          <Card title={listPartners.length} content={"Go to Partners"} subtitle={"Partners"} handleClick={() => navigate('partners')} variant={1} />
+          <Card
+            title={listProjects.length}
+            content={"Go to Projects"}
+            subtitle={"Projects"}
+            handleClick={() => {
+              navigate('projects');
+              setPage("Projects")
+            }}
+          />
+          <Card
+            title={listPartners.length}
+            content={"Go to Partners"}
+            subtitle={"Partners"}
+            handleClick={() => {
+              navigate('partners');
+              setPage("Partners");
+            }}
+            variant={1}
+          />
         </section>
       </h1>
 

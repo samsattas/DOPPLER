@@ -1,18 +1,34 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, InputLabel, MenuItem, Select, Switch, TextField, useMediaQuery, useTheme } from "@mui/material";
+import { Autocomplete, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, FormControlLabel, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, Switch, TextField, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import cancelIcon from "../../assets/icons/iconCancel.svg"
 import { LoadingButton } from "@mui/lab";
 import { deleteProject, postProject } from "../../utils/ProjectStore";
+import { getAllPartners } from "../../utils/PartnerStore";
 
 const ProjectForm = ({project, open, close}) => {
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [readOnly, setReadOnly] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [jsonProject, setJsonProject] = useState({status: true});
+  const [jsonProject, setJsonProject] = useState({status: true, partners: []});
   const [isAllDataCorrect, setIsAllDataCorrect] = useState(false);
+  const [listPartners, setListPartners] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        let partners = await getAllPartners();
+        if (partners) {
+          setListPartners(partners);
+        }
+      }catch(error){
+        console.log(error)
+      }
+    }
+    fetchData();
+  },[])
 
   useEffect(() => {
     if(project){
@@ -20,7 +36,7 @@ const ProjectForm = ({project, open, close}) => {
       setEditMode(true);
       setReadOnly(true)
     }else{
-      setJsonProject({status: true});
+      setJsonProject({status: true, partners: []});
       setEditMode(false);
       setReadOnly(false)
     }
@@ -40,12 +56,12 @@ const ProjectForm = ({project, open, close}) => {
   },[jsonProject])
 
   const handleClose = () => {
-    setJsonProject({status: true});
+    setJsonProject({status: true, partners: []});
     setLoading(false)
     close();
   }
 
-  const handleChange = (event) => {
+  const handleChange = (event, newValue) => {
     if (event.target.type === "checkbox") {
       setJsonProject({
         ...jsonProject,
@@ -83,6 +99,15 @@ const ProjectForm = ({project, open, close}) => {
     }
   }
 
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: 200,
+        width: 250,
+      },
+    },
+  };
+
   return(
     <Dialog
       fullScreen={fullScreen}
@@ -108,7 +133,7 @@ const ProjectForm = ({project, open, close}) => {
           />
         </button>
       </DialogTitle>
-      <DialogContent className="flex flex-col gap-4 w-full md:w-[512px]">
+      <DialogContent className="flex flex-col gap-4 w-full min-[600px]:w-[512px]">
         <form className="flex flex-col">
           <label>Title *</label>
           <input
@@ -162,6 +187,28 @@ const ProjectForm = ({project, open, close}) => {
             disabled={readOnly}
           />
         </form>
+        <Autocomplete
+          className={project && "hidden"}
+          multiple
+          limitTags={2}
+          options={listPartners}
+          getOptionLabel={(partner) => partner.name}
+          defaultValue={jsonProject?.partners}
+          value={jsonProject?.partners}
+          onChange={(e, value) => {
+            setJsonProject({ ...jsonProject, partners: value })
+          }}
+          name="partners"
+          renderInput={(params) => (
+            <TextField {...params} label="Partners" placeholder="Search" />
+          )}
+        />
+        <ul className={!project && "hidden"}>
+          <h2 className="border-b py-1 text-xl">Partners:</h2>
+          {jsonProject?.partners?.map((partner) => (
+            <li>• {partner.name}</li>
+          ))}
+        </ul>
       </DialogContent>
       <DialogActions className="p-6">
         {!editMode && !readOnly && 

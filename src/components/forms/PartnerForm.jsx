@@ -1,16 +1,17 @@
 import { LoadingButton } from "@mui/lab";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, useMediaQuery, useTheme } from "@mui/material";
+import { Alert, Button, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import cancelIcon from "../../assets/icons/iconCancel.svg";
 import { deletePartner, postPartner } from "../../utils/PartnerStore";
 
 const PartnerForm = ({partner, open, close}) => {
   const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [readOnly, setReadOnly] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
   const [jsonPartner, setJsonPartner] = useState({});
   const [isAllDataCorrect, setIsAllDataCorrect] = useState(false);
 
@@ -43,6 +44,10 @@ const PartnerForm = ({partner, open, close}) => {
     setJsonPartner({});
     setLoading(false)
     close();
+  }
+
+  const handleCloseAlert = () => {
+    setOpenAlert(false);
   }
 
   const handleChange = (event) => {
@@ -79,6 +84,7 @@ const PartnerForm = ({partner, open, close}) => {
         handleClose();
       }
     } catch (error) {
+      setOpenAlert(true)
       console.log(error);
     }
   }
@@ -108,7 +114,7 @@ const PartnerForm = ({partner, open, close}) => {
           />
         </button>
       </DialogTitle>
-      <DialogContent className="flex flex-col gap-4 w-full md:w-[512px]">
+      <DialogContent className="flex flex-col gap-4 w-full min-[600px]:w-[512px]">
         <form className="flex flex-col">
           <label>Name *</label>
           <input
@@ -214,6 +220,11 @@ const PartnerForm = ({partner, open, close}) => {
           </div>
         }
       </DialogActions>
+      <Snackbar open={openAlert} autoHideDuration={5000} onClose={handleCloseAlert}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          Can't be deleted, the partner is currently associated to a project.
+        </Alert>
+      </Snackbar>
     </Dialog>
   )
 }
