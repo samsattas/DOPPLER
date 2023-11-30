@@ -21,31 +21,31 @@ const Footer = () => {
         <a href="https://github.com/samsattas" className="rounded-md hover:bg-orange-600 transition-all duration-300">
           <img
           src={iconGitHub}
-          alt=""
+          alt="github"
           className="h-10 p-1 " />
         </a>
-        <a href="" className="rounded-md hover:bg-orange-600 transition-all duration-300">
+        <a href="https://www.facebook.com/BiovIntCIAT.eng/" className="rounded-md hover:bg-orange-600 transition-all duration-300">
           <img
           src={iconFacebook}
-          alt=""
+          alt="facebook"
           className="h-10 p-1 " />
         </a>
-        <a href="" className="rounded-md hover:bg-orange-600 transition-all duration-300">
+        <a href="https://www.linkedin.com/company/ciat" className="rounded-md hover:bg-orange-600 transition-all duration-300">
           <img
           src={iconLinkedIn}
-          alt=""
+          alt="linkedin"
           className="h-10 p-1 " />
         </a>
-        <a href="" className="rounded-md hover:bg-orange-600 transition-all duration-300">
+        <a href="https://twitter.com/BiovIntCIAT_eng" className="rounded-md hover:bg-orange-600 transition-all duration-300">
           <img
           src={iconX}
-          alt=""
+          alt="x"
           className="h-10 p-1 " />
         </a>
-        <a href="" className="rounded-md hover:bg-orange-600 transition-all duration-300">
+        <a href="https://www.instagram.com/bioversityciat/" className="rounded-md hover:bg-orange-600 transition-all duration-300">
           <img
           src={iconInstagram}
-          alt=""
+          alt="instagram"
           className="h-10 p-1 " />
         </a>
       </section>
