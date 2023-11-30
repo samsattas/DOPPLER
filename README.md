@@ -53,13 +53,13 @@ spring.datasource.password=newPassword
 ```
 Then copy the link and paste it in the web browser.
 
-## 4. Use the application
+## 4. Use the application 💡
 
 ### 4.1. Home 🏠
 
 Here you will see the main page with the number of projects and partners created, you can navigate through the menu or the options shown.
 
-### 4.2. Projects 💡
+### 4.2. Projects 🔎
 
 In the projects section you can create a project with a title, an environment, a status, details and partners if there are any registered. After that you can see the projects in the table and also edit or delete them. 
 
