@@ -8,6 +8,9 @@ This is a step-by-step instruction to use the software. In order to execute succ
 * Editor for frontend (I recommend Visual Studio Code)
 * Database workbench (I used MySQL's)
 
+## Documents
+You can find all the documentation in the folder ```docs``` of this repository
+
 ## 1. Set up the Database in MySQL 🗄
 1.1. Set the MySQL username, password and port. By default the username is "root", the password is empty and the port is 3306.
 
@@ -91,9 +94,6 @@ For this project I used:
 * Vite as a compilation tool
 * Adobe Express for logo design
 * Figma for mockups
-
-## Documents
-You can find all the documentation in the folder ```docs``` of this repository
 
 ## Contact ✉
 Questions? Something you like? contact me:
