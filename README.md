@@ -78,7 +78,8 @@ Also you can filter the partners by searching the name in the search bar.
 For this project I used:
 * MySQL for database.
 * Java for backend
-* Spring as backend framework
+* Spring Boot as backend framework
+* Maven for dependencies
 * Spring Web for web build
 * MySQL Driver as MySQL JDBC Driver
 * Lombok for constructors, getters and setters
