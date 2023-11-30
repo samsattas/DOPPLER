@@ -4,6 +4,7 @@ import iconFacebook from '../assets/icons/iconFacebook.svg';
 import iconLinkedIn from '../assets/icons/iconLinkedIn.svg';
 import iconX from '../assets/icons/iconX.svg';
 import iconInstagram from '../assets/icons/iconIntagram.svg';
+import LogoButton from "./LogoButton";
 
 const Footer = () => {
   return(
@@ -18,36 +19,31 @@ const Footer = () => {
         </section>
       </div>
       <section className="text-white flex  gap-2 text-lg">
-        <a href="https://github.com/samsattas" className="rounded-md hover:bg-orange-600 transition-all duration-300">
-          <img
-          src={iconGitHub}
-          alt="github"
-          className="h-10 p-1 " />
-        </a>
-        <a href="https://www.facebook.com/BiovIntCIAT.eng/" className="rounded-md hover:bg-orange-600 transition-all duration-300">
-          <img
-          src={iconFacebook}
-          alt="facebook"
-          className="h-10 p-1 " />
-        </a>
-        <a href="https://www.linkedin.com/company/ciat" className="rounded-md hover:bg-orange-600 transition-all duration-300">
-          <img
-          src={iconLinkedIn}
-          alt="linkedin"
-          className="h-10 p-1 " />
-        </a>
-        <a href="https://twitter.com/BiovIntCIAT_eng" className="rounded-md hover:bg-orange-600 transition-all duration-300">
-          <img
-          src={iconX}
-          alt="x"
-          className="h-10 p-1 " />
-        </a>
-        <a href="https://www.instagram.com/bioversityciat/" className="rounded-md hover:bg-orange-600 transition-all duration-300">
-          <img
-          src={iconInstagram}
-          alt="instagram"
-          className="h-10 p-1 " />
-        </a>
+        <LogoButton
+          alt={"github"}
+          image={iconGitHub}
+          link={"https://github.com/samsattas"}
+        />
+        <LogoButton
+          alt={"facebook"}
+          image={iconFacebook}
+          link={"https://www.facebook.com/BiovIntCIAT.eng/"}
+        />
+        <LogoButton
+          alt={"linkedin"}
+          image={iconLinkedIn}
+          link={"https://www.linkedin.com/company/ciat"}
+        />
+        <LogoButton
+          alt={"x"}
+          image={iconX}
+          link={"https://twitter.com/BiovIntCIAT_eng"}
+        />
+        <LogoButton
+          alt={"instagram"}
+          image={iconInstagram}
+          link={"https://www.instagram.com/bioversityciat/"}
+        />
       </section>
     </footer>
   )
