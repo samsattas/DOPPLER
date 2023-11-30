@@ -89,6 +89,11 @@ For this project I used:
 * Tailwind to stylize
 * Material UI for some components
 * Vite as a compilation tool
+* Adobe Express for logo design
+* Figma for mockups
+
+## Documents
+You can find all the documentation in the folder ```docs``` of this repository
 
 ## Contact ✉
 Questions? Something you like? contact me:
