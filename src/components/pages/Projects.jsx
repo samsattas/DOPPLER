@@ -75,12 +75,12 @@ const Projects = () => {
                 'Projects'
               )
             }
-            className="bg-green-300 hover:bg-green-400 transition-all duration-300 p-2 rounded-md"
+            className="bg-green-300 hover:bg-green-400 transition-all duration-300 p-2 rounded-md w-12 flex items-center justify-center"
           >
             <img src={iconExport} alt="export" />
           </button>
           <button 
-            className="bg-orange-300 text-orange-700 font-bold hover:bg-orange-400 transition-all duration-300 px-8 py-2 rounded-md"
+            className="bg-orange-300 text-orange-700 font-bold hover:bg-orange-400 w-full transition-all duration-300 px-8 py-2 rounded-md"
             onClick={() => setOpenForm(true)}
           >
             Create Project
