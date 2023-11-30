@@ -47,7 +47,7 @@ const ProjectForm = ({project, open, close}) => {
       !jsonProject?.title
       // || !jsonProject?.partners
       || !jsonProject?.environment
-      // || !jsonProject?.details
+      || !jsonProject?.details
     ){
       setIsAllDataCorrect(false)
     }else{

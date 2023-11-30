@@ -44,8 +44,8 @@ const Home = () => {
     <article className="px-4 w-full">
       <h1 className="flex flex-col text-center items-center text-4xl font-bold text-green-700">
         Welcome to
-        <img src={logo} alt="DOPPLER" className="sm:w-1/3 w-full" />
-        <section className="w-full flex flex-col sm:flex-row sm:justify-evenly gap-10 pt-10">
+        <img src={logo} alt="DOPPLER" className="md:w-1/3 w-full" />
+        <section className="w-full flex flex-col items-center md:flex-row md:justify-evenly gap-10 pt-10">
           <Card
             title={listProjects.length}
             content={"Go to Projects"}
