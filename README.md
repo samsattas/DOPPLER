@@ -15,7 +15,7 @@ This is a step-by-step instruction to use the software. In order to execute succ
 ```sql
 create database DOPPLER;
 ```
-> Make sure the database is created by refreshing all.
+> Make sure the database is created by right-clicking and then click Refresh All.
 
 ## 2. Set up the backend ⌨
 2.1. Download the backend project from **[here](https://github.com/samsattas/DOPPLER-Backend/ "DOPPLER Backend")**.
@@ -42,7 +42,7 @@ spring.datasource.password=newPassword
 
 3.4. Then execute the command ```npm run dev``` to start the application.
 
-3.5. Tha console will show a message like:
+3.5. The console will show a message like:
 ```
     VITE v5.0.3  ready in 986 ms
 
@@ -75,7 +75,13 @@ Also you can filter the partners by searching the name in the search bar.
 
 
 ## Contact ✉
-Got questions? See something you like? contact me 
+Questions? Something you like? contact me:
+```
+{
+    email: "samuelsatizabaltascon@gmail.com",
+    linkedin: "https://www.linkedin.com/in/samuel-satizabal-397062239/",
+}
+```
 
 
 
