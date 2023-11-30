@@ -73,7 +73,7 @@ In the partners page you can create a partner with a name, a phone number, a des
 
 Also you can filter the partners by searching the name in the search bar.
 
-## Technologies
+## Technologies ⚙
 
 For this project I used:
 * MySQL for database.
