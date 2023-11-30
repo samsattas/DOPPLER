@@ -11,6 +11,7 @@ const Partners = () => {
   const [listPartners, setListPartners] = useState([]);
   const [partnersBase, setPartnersBase] = useState([]);
 
+  // Fetch: list of all partners
   useEffect(() => {
     async function fetchData() {
       try {
@@ -25,12 +26,14 @@ const Partners = () => {
     fetchData();
   },[openForm])
 
+  // Setting a modifiable list of partners for searching
   useEffect(() => {
     if(listPartners){
       setPartnersBase(listPartners);
     }
   },[listPartners,openForm])
 
+  // Search the items with the correct value
   const handleSearch = (event) => {
     let auxArr = [];
     listPartners.forEach((item)=>{
@@ -41,6 +44,7 @@ const Partners = () => {
     setPartnersBase(auxArr);
   }
 
+  // Handles the change of the page
   const handleChangePage = (event, newPage) => {
     setPage(newPage-1);
   };

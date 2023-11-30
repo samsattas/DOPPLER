@@ -15,6 +15,7 @@ const PartnerForm = ({partner, open, close}) => {
   const [jsonPartner, setJsonPartner] = useState({});
   const [isAllDataCorrect, setIsAllDataCorrect] = useState(false);
 
+  // Update the partner data in json format
   useEffect(() => {
     if(partner){
       setJsonPartner(partner);
@@ -27,6 +28,7 @@ const PartnerForm = ({partner, open, close}) => {
     }
   },[partner, open])
 
+  // Checking if all fields are filled correctly
   useEffect(() => {
     if(
       !jsonPartner?.name
@@ -40,16 +42,19 @@ const PartnerForm = ({partner, open, close}) => {
     }
   },[jsonPartner])
 
+  // Handle close of the form
   const handleClose = () => {
     setJsonPartner({});
     setLoading(false)
     close();
   }
 
+  // If there is a problem, opens the alert
   const handleCloseAlert = () => {
     setOpenAlert(false);
   }
 
+  // Update the partner json when recieved an input
   const handleChange = (event) => {
     if (event.target.type === "checkbox") {
       setJsonPartner({
@@ -64,6 +69,7 @@ const PartnerForm = ({partner, open, close}) => {
     }
   }
 
+  // Post Partner
   const handleSubmit = async () => {
     setLoading(true);
     try {
@@ -77,6 +83,7 @@ const PartnerForm = ({partner, open, close}) => {
     }
   }
 
+  // Delete Partner
   const handleDelete = async () => {
     try {
       const res = await deletePartner(partner.id);

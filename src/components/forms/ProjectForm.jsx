@@ -9,13 +9,14 @@ const ProjectForm = ({project, open, close}) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const [readOnly, setReadOnly] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [jsonProject, setJsonProject] = useState({status: true, partners: []});
   const [isAllDataCorrect, setIsAllDataCorrect] = useState(false);
+  const [jsonProject, setJsonProject] = useState({status: true, partners: []});
   const [listPartners, setListPartners] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [readOnly, setReadOnly] = useState(false);
 
+  // Fetch: list of all partners
   useEffect(() => {
     async function fetchData() {
       try {
@@ -30,6 +31,7 @@ const ProjectForm = ({project, open, close}) => {
     fetchData();
   },[])
 
+  // Update the project data in json format
   useEffect(() => {
     if(project){
       setJsonProject(project);
@@ -42,6 +44,7 @@ const ProjectForm = ({project, open, close}) => {
     }
   },[project, open])
 
+  // Checking if all fields are filled correctly
   useEffect(() => {
     if(
       !jsonProject?.title
@@ -54,13 +57,15 @@ const ProjectForm = ({project, open, close}) => {
     }
   },[jsonProject])
 
+  // Handle close of the form
   const handleClose = () => {
     setJsonProject({status: true, partners: []});
     setLoading(false)
     close();
   }
 
-  const handleChange = (event, newValue) => {
+  // Update the project json when recieved an input
+  const handleChange = (event) => {
     if (event.target.type === "checkbox") {
       setJsonProject({
         ...jsonProject,
@@ -74,6 +79,7 @@ const ProjectForm = ({project, open, close}) => {
     }
   }
 
+  // Post Project
   const handleSubmit = async () => {
     setLoading(true);
     try {
@@ -87,6 +93,7 @@ const ProjectForm = ({project, open, close}) => {
     }
   }
 
+  // Delete Project
   const handleDelete = async () => {
     try {
       const res = await deleteProject(project.id);
@@ -97,15 +104,6 @@ const ProjectForm = ({project, open, close}) => {
       console.log(error);
     }
   }
-
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: 200,
-        width: 250,
-      },
-    },
-  };
 
   return(
     <Dialog

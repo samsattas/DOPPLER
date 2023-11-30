@@ -3,24 +3,43 @@ import axios from "axios";
 //In case of using another port, change the 8080 to the custom port.
 const baseUrl = "http://localhost:8080/api/v1/projects";
 
+/**
+ * @description Gets all projects
+ * @returns an array of projects in json format
+ */
 export const getAllProjects = async () => {
   const response = await axios.get(baseUrl);
   const data = await response.data;
   return data;
 };
 
+/**
+ * @description Post a project
+ * @param {JSON} payload
+ * @returns response data
+ */
 export const postProject = async (payload) => {
   const response = await axios.post(baseUrl, payload);
   const data = await response.data;
   return data;
 };
 
+/**
+ * @description Deletes a project
+ * @param {number} id
+ * @returns response data
+ */
 export const deleteProject = async (id) => {
   const response = await axios.delete(`${baseUrl}/${id}`);
   const data = await response.data;
   return data;
 };
 
+/**
+ * @description Converts an array of json to a string of a CSV
+ * @param {*} objArray
+ * @returns String of a CSV
+ */
 function convertToCSV(objArray) {
   let array = typeof objArray != "object" ? JSON.parse(objArray) : objArray;
   let str = "";
@@ -39,6 +58,12 @@ function convertToCSV(objArray) {
   return str;
 }
 
+/**
+ * @description Exports a CSV file based on the input
+ * @param {JSON} headers
+ * @param {Array} items
+ * @param {String} fileTitle
+ */
 export function exportCSVFile(headers, items, fileTitle) {
   if (headers) {
     items.unshift(headers);

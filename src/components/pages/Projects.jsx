@@ -5,13 +5,14 @@ import { exportCSVFile, getAllProjects } from "../../utils/ProjectStore";
 import iconExport from '../../assets/icons/iconExport.svg'
 
 const Projects = () => {
-  const [openForm, setOpenForm] = useState(false);
-  const [selectedProject, setSelectedProject] = useState();
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [listProjects, setListProjects] = useState([]);
+  const [openForm, setOpenForm] = useState(false);
+  const [page, setPage] = useState(0);
   const [projectsBase, setProjectsBase] = useState([]);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [selectedProject, setSelectedProject] = useState();
 
+  // Fetch: list of all projects
   useEffect(() => {
     async function fetchData() {
       try {
@@ -26,12 +27,14 @@ const Projects = () => {
     fetchData();
   },[openForm])
 
+  // Setting a modifiable list of projects for searching
   useEffect(() => {
     if(listProjects){
       setProjectsBase(listProjects);
     }
   },[listProjects, openForm])
 
+  // Search the items with the correct value
   const handleSearch = (event) => {
     let auxArr = [];
     listProjects.forEach((item)=>{
@@ -42,6 +45,7 @@ const Projects = () => {
     setProjectsBase(auxArr);
   }
 
+  // Handles the change of the page
   const handleChangePage = (event, newPage) => {
     setPage(newPage-1);
   };
