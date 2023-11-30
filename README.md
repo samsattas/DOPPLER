@@ -73,6 +73,21 @@ In the partners page you can create a partner with a name, a phone number, a des
 
 Also you can filter the partners by searching the name in the search bar.
 
+## Technologies
+
+For this project I used:
+* MySQL for database.
+* Java for backend
+* Spring as backend framework
+* Spring Web for web build
+* MySQL Driver as MySQL JDBC Driver
+* Lombok for constructors, getters and setters
+* Spring Data JPA to persist data in SQL
+* HTML, CSS and JavaScript for frontend
+* React.js as frontend framework*
+* Tailwind to stylize
+* Material UI for some components
+* Vite as a compilation tool
 
 ## Contact ✉
 Questions? Something you like? contact me:
@@ -82,7 +97,3 @@ Questions? Something you like? contact me:
     linkedin: "https://www.linkedin.com/in/samuel-satizabal-397062239/",
 }
 ```
-
-
-
-
